@@ -1,14 +1,19 @@
 import '../../../shared/style/main.css'
 
 export default function NearbyActivityCard({
-  imageUrl = '',
+  images = [],
   title = '',
   shortDescription = '',
 }) {
+  console.log(images)
   return (
     <div className='nearby-activity-card-container'>
       <div className='nearby-card-top'>
-        <img src={imageUrl} alt='A nearby activity' id='nearbyactivity-image' />
+        <img
+          src={images[0].url}
+          alt='A nearby activity'
+          id='nearbyactivity-image'
+        />
         <button id='nearbyactivity-save-button'>Save</button>
       </div>
       <h4 id='nearbyactivity-title'>{title}</h4>

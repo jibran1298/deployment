@@ -320,7 +320,7 @@ function App() {
             />
           </section>
           <section>
-            <NearbyActivity />
+            <NearbyActivity activityId={data?.id} />
           </section>
         </>
       ) : (
