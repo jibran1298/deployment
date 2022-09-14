@@ -31,8 +31,8 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
       const data = await fetch(`${API_ENDPOINT}/frontend/trips`, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
       })
 
       const response = await data.json()

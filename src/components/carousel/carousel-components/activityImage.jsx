@@ -1,4 +1,7 @@
-import { API_ENDPOINT, carouselSectionData } from '../../../shared/data/common-data'
+import {
+  API_ENDPOINT,
+  carouselSectionData,
+} from '../../../shared/data/common-data'
 import '../../../shared/style/main.css'
 import ActivityImageButton from './activityImageButton'
 
@@ -7,7 +10,7 @@ export default function ActivityImage({
   isSaved = false,
   alt = '',
   id = 0,
-  activityId = 0
+  activityId = 0,
 }) {
   const { saveButtonText, savedButtonText } = carouselSectionData
 
@@ -17,21 +20,18 @@ export default function ActivityImage({
       formData.append('activityId', activityId)
       formData.append('tripId', id)
       formData.append('tripType', 'favorite')
-      
+
       await fetch(`${API_ENDPOINT}/frontend/trips/add_activity`, {
         method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
-        body: formData
+        body: formData,
       })
-
-
     } catch (error) {
       console.error(error)
     }
   }
-
 
   return (
     <div className='activity-image-container'>
