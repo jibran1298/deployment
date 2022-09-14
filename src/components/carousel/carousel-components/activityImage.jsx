@@ -10,7 +10,7 @@ export default function ActivityImage({
   const { saveButtonText, savedButtonText } = carouselSectionData
   return (
     <div className='activity-image-container'>
-      <img src={imageUrl} alt={alt} id='activity-image' />
+      <img src={imageUrl} alt={alt} id='activity-image' loading='lazy'/>
       <ActivityImageButton
         text={isSaved === true ? savedButtonText : saveButtonText}
       />

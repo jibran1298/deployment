@@ -13,6 +13,7 @@ export default function NearbyActivityCard({
           src={images[0].url}
           alt='A nearby activity'
           id='nearbyactivity-image'
+          loading='lazy'
         />
         <button id='nearbyactivity-save-button'>Save</button>
       </div>
