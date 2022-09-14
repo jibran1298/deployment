@@ -40,6 +40,7 @@ export default function NearbyActivity({ activityId = 270 }) {
               images={nearbyActivity.images}
               title={nearbyActivity.name}
               shortDescription={nearbyActivity.description_short}
+              id={nearbyActivity.id}
             />
           </Fragment>
         ))}
