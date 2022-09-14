@@ -25,6 +25,7 @@ export default function NearbyActivity({ activityId = 0 }) {
     setNearbyActivities(response)
   }
 
+  /* eslint-disable */
   useEffect(() => {
     fetchNearbyActivities()
   }, [activityId])
