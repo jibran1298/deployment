@@ -1,9 +1,12 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+import { API_ENDPOINT } from '../../shared/data/common-data'
 import ActivityImage from './carousel-components/activityImage'
 
-export default function ImageCarousel({ images = [] }) {
+export default function ImageCarousel({ images = [], activityId = 0 }) {
+  const [saved, setSaved] = useState(false)
+
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -22,6 +25,30 @@ export default function ImageCarousel({ images = [] }) {
       items: 1,
     },
   }
+
+  const fetchTrips = async () => {
+    try {
+      const data = await fetch(`${API_ENDPOINT}/frontend/trips`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        }
+      })
+
+      const response = await data.json()
+      response[0]?.activities?.map((activity) => {
+        if (activity.id === activityId) {
+          setSaved(true)
+        }
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchTrips()
+  }, [])
 
   return (
     <Carousel
@@ -44,8 +71,10 @@ export default function ImageCarousel({ images = [] }) {
         <Fragment key={index}>
           <ActivityImage
             imageUrl={image.url}
-            isSaved={false}
+            isSaved={saved}
             alt={image.alternativeText}
+            id={image.id}
+            activityId={activityId}
           />
         </Fragment>
       ))}

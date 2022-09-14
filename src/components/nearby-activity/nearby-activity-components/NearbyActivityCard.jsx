@@ -5,7 +5,6 @@ export default function NearbyActivityCard({
   title = '',
   shortDescription = '',
 }) {
-  console.log(images)
   return (
     <div className='nearby-activity-card-container'>
       <div className='nearby-card-top'>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import ImageCarousel from './components/carousel/carousel'
 import Description from './components/description/description'
 import Label from './components/label/label'
 import Login from './components/login/login'
@@ -6,8 +7,6 @@ import MapComponent from './components/map/map'
 import NearbyActivity from './components/nearby-activity/nearbyActivity'
 import { API_ENDPOINT } from './shared/data/common-data'
 import './shared/style/main.css'
-
-const ImageCarousel = React.lazy(() => import('./components/carousel/carousel'))
 
 /**
 
@@ -302,7 +301,7 @@ function App() {
       {localStorage.getItem('accessToken') ? (
         <>
           <section>
-            <ImageCarousel images={data?.images} />
+            <ImageCarousel images={data?.images} activityId={data?.id} />
           </section>
           <section>
             <Label labels={data?.labels} title={data?.name} />

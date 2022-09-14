@@ -6,7 +6,7 @@ import {
 import '../../shared/style/main.css'
 import NearbyActivityCard from './nearby-activity-components/NearbyActivityCard'
 
-export default function NearbyActivity({ activityId = 0 }) {
+export default function NearbyActivity({ activityId = 270 }) {
   const [nearbyActivities, setNearbyActivities] = useState([])
 
   const fetchNearbyActivities = async () => {
