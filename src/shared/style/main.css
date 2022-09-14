@@ -1,0 +1,226 @@
+:root {
+  --grid-gap: 5px;
+  --column-gap: 5px;
+}
+
+/* Shared Style -> Start */
+
+.section-title {
+  font-size: 1.8em;
+  font-weight: 700;
+}
+
+.text-input {
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  min-width: 250px;
+  border: 1px solid lightgray;
+}
+
+.text-input:active,
+.text-input:focus {
+  outline: none;
+}
+
+.custom-button {
+  width: 280px;
+  padding: 1em;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.custom-button:hover {
+  color: white;
+  background: gray;
+}
+
+.custom-button:active {
+  transform: translateY(2px);
+}
+
+/* Shared Style -> End */
+
+/* App.js Style -> Start */
+
+.App {
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+/* App.js Style -> End */
+
+/* Carousel Style -> Start */
+
+.carousel-container {
+  max-width: 100vw;
+}
+
+.carousel-item {
+  width: 250px !important;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: auto;
+  position: relative;
+}
+
+/* Carousel Style -> End */
+
+/* Carousel Image Style -> Start */
+
+#activity-image {
+  width: 100%;
+  z-index: -1;
+}
+
+.activity-image-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  width: 50px;
+  position: absolute;
+  top: 20%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+/* Carousel Image Style -> End */
+
+/* Label Container Style -> Start */
+
+.labels-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1em;
+}
+
+.labels-container h1 {
+  margin-bottom: 10px;
+}
+
+.labelitems-container {
+  display: grid;
+  overflow-x: scroll;
+  grid-auto-flow: column;
+  column-gap: var(--column-gap);
+  max-width: 80vw;
+}
+
+.labelitems-container::-webkit-scrollbar {
+  display: none;
+}
+
+.labelitem-container {
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(194, 217, 224);
+  border-radius: 34px;
+  font-family: Mulish;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  color: rgb(25, 47, 84);
+  padding: 5px 10px;
+  margin: 0px 5px 5px 0px;
+}
+
+/* Label Container Style -> End */
+
+/* Description Section Style -> Start */
+
+.description-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.description-item {
+  margin: 1em;
+}
+
+/* Description Section Style -> End */
+
+/* Nearby Section Style -> Start */
+
+.nearby-section-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 1em;
+  align-items: flex-start;
+}
+
+.nearby-activities-container {
+  display: grid;
+  overflow-x: scroll;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  max-width: 97vw;
+}
+
+.nearby-activities-container::-webkit-scrollbar {
+  display: none;
+}
+
+.nearby-activity-card-container {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.nearby-card-top {
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+#nearbyactivity-image {
+  width: 250px;
+  z-index: -1;
+}
+
+#nearbyactivity-save-button {
+  position: absolute;
+  top: 20%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  padding: 0.6em;
+  width: 70px;
+}
+
+#nearbyactivity-readmore-button {
+  padding: 0.6em;
+  margin-left: 65%;
+}
+
+/* Nearby Section Style -> End */
+
+/* Login Form Style -> Start */
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  flex-direction: column;
+  box-shadow: 0px 0px 48px 5px rgba(0, 0, 0, 0.59);
+  margin: 2em 5em;
+  border-radius: 5px;
+}
+
+/* Login Form Style -> End */
+
+/* Map Style -> Start */
+
+#marker-text {
+  color: red;
+}
+
+/* Map Style -> End */
