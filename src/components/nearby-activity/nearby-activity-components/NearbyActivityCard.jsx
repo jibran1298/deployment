@@ -24,8 +24,6 @@ export default function NearbyActivityCard({
         },
         body: formData,
       })
-
-
     } catch (error) {
       console.error(error)
     } finally {
