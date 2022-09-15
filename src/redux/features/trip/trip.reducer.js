@@ -3,7 +3,7 @@ import ActionTypes from '../../utils/actions.type'
 const INITIAL_STATE = {
   data: {},
   trips: [],
-  nearbyActvities: [],
+  nearbyActivities: [],
 }
 
 const tripReducer = (state = INITIAL_STATE, action) => {
@@ -21,7 +21,7 @@ const tripReducer = (state = INITIAL_STATE, action) => {
     case ActionTypes.NEARBY_ACTIVITIES:
       return {
         ...state,
-        nearbyActvities: action.payload,
+        nearbyActivities: action.payload,
       }
 
     default:

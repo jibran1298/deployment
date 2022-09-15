@@ -13,7 +13,8 @@ export default function NearbyActivityCard({
   id = 0,
 }) {
   const [saved, setSaved] = useState(false)
-  const userTrips = useSelector((state) => state.trip.userTrips)
+  const tripData = useSelector((state) => state.trip)
+  const userTrips = useSelector((state) => state.trip.trips)
   const loginData = useSelector((state) => state.auth.data)
   const dispatch = useDispatch()
 
@@ -46,7 +47,7 @@ export default function NearbyActivityCard({
   }, [loginData])
 
   useEffect(() => {
-    userTrips?.activities?.map((activity) => {
+    userTrips[0]?.activities?.map((activity) => {
       if (activity.id === id) {
         setSaved(true)
       }

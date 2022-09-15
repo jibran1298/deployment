@@ -6,7 +6,7 @@ import '../../shared/style/main.css'
 import NearbyActivityCard from './nearby-activity-components/NearbyActivityCard'
 
 export default function NearbyActivity({ activityId = 270 }) {
-  const nearbyActivities = useSelector((state) => state?.trip?.nearbyActivities)
+  const nearbyActivities = useSelector((state) => state.trip.nearbyActivities)
   const loginData = useSelector((state) => state?.auth?.data)
   const dispatch = useDispatch()
 

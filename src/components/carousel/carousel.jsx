@@ -9,7 +9,7 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
   const [saved, setSaved] = useState(false)
   const dispatch = useDispatch()
   const loginData = useSelector((state) => state?.auth?.data)
-  const trips = useSelector((state) => state?.trip?.data)
+  const trips = useSelector((state) => state?.trip?.trips)
 
   const responsive = {
     superLargeDesktop: {
@@ -43,12 +43,12 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
   }, [loginData])
 
   useEffect(() => {
-    trips?.activities?.map((activity) => {
+    trips[0]?.activities?.map((activity) => {
       if (activity.id === activityId) {
         setSaved(true)
       }
     })
-  }, [trips])
+  }, [])
 
   return (
     <Carousel

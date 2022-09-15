@@ -79,7 +79,6 @@ export const favoriteTrip = ({ token = '', activityId = 0, tripId = 0 }) => {
 export const fetchNearbyActivities = ({ token = '', activityId = 270 }) => {
   return async (dispatch) => {
     try {
-      console.log(token)
       const data = await fetch(
         `${API_ENDPOINT}/frontend/activities/nearby/${activityId}`,
         {
