@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   favoriteTrip,
-  fetchUserTrips
+  fetchUserTrips,
 } from '../../../redux/features/trip/trip.action'
 import '../../../shared/style/main.css'
 
@@ -43,10 +43,6 @@ export default function NearbyActivityCard({
 
   /* eslint-disable */
   useEffect(() => {
-    fetchTrips()
-  }, [loginData])
-
-  useEffect(() => {
     userTrips[0]?.activities?.map((activity) => {
       if (activity.id === id) {
         setSaved(true)
@@ -67,9 +63,11 @@ export default function NearbyActivityCard({
           {saved === true ? 'Saved' : 'Save'}
         </button>
       </div>
-      <h4 id='nearbyactivity-title'>{title}</h4>
-      <p id='nearby-short-description'>{shortDescription}</p>
-      <button id='nearbyactivity-readmore-button'>Read More</button>
+      <div className='nearby-card-bottom'>
+        <h4 id='nearbyactivity-title'>{title}</h4>
+        <p id='nearby-short-description'>{shortDescription}</p>
+        <button id='nearbyactivity-readmore-button'>Read More</button>
+      </div>
     </div>
   )
 }

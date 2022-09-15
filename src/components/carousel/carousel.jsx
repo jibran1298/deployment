@@ -41,7 +41,7 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
   /* eslint-disable */
   useEffect(() => {
     fetchTrips()
-  }, [loginData])
+  }, [])
 
   /* eslint-disable */
   useEffect(() => {
