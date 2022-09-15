@@ -10,8 +10,8 @@ export const userLogin = ({ email = '', password = '' }) => {
     return async (dispatch) => {
         try {
             const formdata = new FormData()
-            formdata.append('identifier', email?.current?.value)
-            formdata.append('password', password?.current?.value)
+            formdata.append('identifier', email)
+            formdata.append('password', password)
             const data = await fetch(`${API_ENDPOINT}/auth/local`, {
                 method: 'POST',
                 body: formdata,
@@ -19,9 +19,10 @@ export const userLogin = ({ email = '', password = '' }) => {
 
             const response = await data.json()
 
-            dispatch(setLoginData(response))
-
-            window.location.reload()
+            if (response?.jwt) {
+                dispatch(setLoginData(response))
+                // window.location.reload()
+            }
         } catch (error) {
             console.error(error)
         }

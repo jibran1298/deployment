@@ -34,7 +34,7 @@ export default function NearbyActivity({ activityId = 270 }) {
     <div className='nearby-section-container'>
       <h1>{nearbyActivitiesData.title}</h1>
       <div className='nearby-activities-container'>
-        {nearbyActivities.map((nearbyActivity, index) => (
+        {Array.isArray(nearbyActivities) ? nearbyActivities?.map((nearbyActivity, index) => (
           <Fragment key={index}>
             <NearbyActivityCard
               images={nearbyActivity.images}
@@ -43,7 +43,7 @@ export default function NearbyActivity({ activityId = 270 }) {
               id={nearbyActivity.id}
             />
           </Fragment>
-        ))}
+        )) : ''}
       </div>
     </div>
   )

@@ -11,7 +11,7 @@ import './shared/style/main.css'
 
 function App() {
   const [data, setData] = useState({})
-  const loginData = useSelector((state) => state.data)
+  const loginData = useSelector((state) => state.auth.data)
 
   const fetchDetails = async (activitySlug) => {
     const data = await fetch(
@@ -28,6 +28,8 @@ function App() {
   useEffect(() => {
     fetchDetails(window.location.pathname.slice(1))
   }, [])
+
+  console.log(loginData)
 
   return (
     <div className='App'>

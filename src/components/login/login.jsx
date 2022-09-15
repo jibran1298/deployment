@@ -1,4 +1,5 @@
 import React, { Suspense, useCallback, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import { userLogin } from '../../redux/features/auth/auth.action'
 import '../../shared/style/main.css'
 
@@ -8,14 +9,13 @@ const TextInput = React.lazy(() => import('../../shared/components/TextInput'))
 export default function Login() {
   const email = useRef(null)
   const password = useRef(null)
+  const dispatch = useDispatch()
 
   const loginAPI = async () => {
-    userLogin(email, password)
+    dispatch(
+      userLogin({ email: email?.current?.value, password: password?.current?.value })
+    )
   }
-
-  const handleFormSubmit = useCallback(() => {
-    loginAPI()
-  }, [])
 
   return (
     <div className='login-form'>
@@ -39,7 +39,7 @@ export default function Login() {
       </Suspense>
 
       <Suspense fallback={<div>Loading...</div>}>
-        <Button text='Sign In' onClick={handleFormSubmit} />
+        <Button text='Sign In' onClick={loginAPI} />
       </Suspense>
     </div>
   )
