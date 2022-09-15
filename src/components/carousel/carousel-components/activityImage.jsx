@@ -1,7 +1,6 @@
-import {
-  API_ENDPOINT,
-  carouselSectionData,
-} from '../../../shared/data/common-data'
+import { useDispatch, useSelector } from 'react-redux'
+import { favoriteTrip } from '../../../redux/features/trip/trip.action'
+import { carouselSectionData } from '../../../shared/data/common-data'
 import '../../../shared/style/main.css'
 import ActivityImageButton from './activityImageButton'
 
@@ -13,23 +12,16 @@ export default function ActivityImage({
   activityId = 0,
 }) {
   const { saveButtonText, savedButtonText } = carouselSectionData
+  const dispatch = useDispatch()
+  const loginData = useSelector((state) => state?.auth?.data)
 
-  const favoriteTrip = async () => {
+  const favTrip = async () => {
     try {
-      const formData = new FormData()
-      formData.append('activityId', activityId)
-      formData.append('tripId', id)
-      formData.append('tripType', 'favorite')
-
-      await fetch(`${API_ENDPOINT}/frontend/trips/add_activity`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-        body: formData,
-      })
+      dispatch(favoriteTrip(loginData?.jwt, activityId, id))
     } catch (error) {
       console.error(error)
+    } finally {
+      isSaved = true
     }
   }
 
@@ -38,7 +30,7 @@ export default function ActivityImage({
       <img src={imageUrl} alt={alt} id='activity-image' loading='lazy' />
       <ActivityImageButton
         text={isSaved === true ? savedButtonText : saveButtonText}
-        onClick={favoriteTrip}
+        onClick={favTrip}
       />
     </div>
   )

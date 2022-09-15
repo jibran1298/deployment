@@ -1,11 +1,15 @@
 import { Fragment, useEffect, useState } from 'react'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
-import { API_ENDPOINT } from '../../shared/data/common-data'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUserTrips } from '../../redux/features/trip/trip.action'
 import ActivityImage from './carousel-components/activityImage'
 
 export default function ImageCarousel({ images = [], activityId = 0 }) {
   const [saved, setSaved] = useState(false)
+  const dispatch = useDispatch()
+  const loginData = useSelector((state) => state?.auth?.data)
+  const trips = useSelector((state) => state?.trip?.data)
 
   const responsive = {
     superLargeDesktop: {
@@ -28,19 +32,7 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
 
   const fetchTrips = async () => {
     try {
-      const data = await fetch(`${API_ENDPOINT}/frontend/trips`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-
-      const response = await data.json()
-      response[0]?.activities?.map((activity) => {
-        if (activity.id === activityId) {
-          setSaved(true)
-        }
-      })
+      dispatch(fetchUserTrips(loginData?.jwt))
     } catch (error) {
       console.error(error)
     }
@@ -49,6 +41,14 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
   useEffect(() => {
     fetchTrips()
   }, [])
+
+  useEffect(() => {
+    trips?.activities?.map((activity) => {
+      if (activity.id === activityId) {
+        setSaved(true)
+      }
+    })
+  }, [trips])
 
   return (
     <Carousel

@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
-import { API_ENDPOINT } from '../../../shared/data/common-data'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  favoriteTrip,
+  fetchUserTrips,
+} from '../../../redux/features/trip/trip.action'
 import '../../../shared/style/main.css'
 
 export default function NearbyActivityCard({
@@ -9,21 +13,13 @@ export default function NearbyActivityCard({
   id = 0,
 }) {
   const [saved, setSaved] = useState(false)
+  const userTrips = useSelector((state) => state.trip.userTrips)
+  const loginData = useSelector((state) => state.auth.data)
+  const dispatch = useDispatch()
 
-  const favoriteTrip = async () => {
+  const favTrip = async () => {
     try {
-      const formData = new FormData()
-      formData.append('activityId', id)
-      formData.append('tripId', images[0].id)
-      formData.append('tripType', 'favorite')
-
-      await fetch(`${API_ENDPOINT}/frontend/trips/add_activity`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-        body: formData,
-      })
+      dispatch(favoriteTrip(loginData?.jwt, id, images[0]?.id))
     } catch (error) {
       console.error(error)
     } finally {
@@ -33,19 +29,7 @@ export default function NearbyActivityCard({
 
   const fetchTrips = async () => {
     try {
-      const data = await fetch(`${API_ENDPOINT}/frontend/trips`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-
-      const response = await data.json()
-      response[0]?.activities?.map((activity) => {
-        if (activity.id === id) {
-          setSaved(true)
-        }
-      })
+      dispatch(fetchUserTrips(loginData?.jwt))
     } catch (error) {
       console.error(error)
     }
@@ -54,6 +38,14 @@ export default function NearbyActivityCard({
   useEffect(() => {
     fetchTrips()
   }, [])
+
+  useEffect(() => {
+    userTrips?.activities?.map((activity) => {
+      if (activity.id === id) {
+        setSaved(true)
+      }
+    })
+  }, [userTrips])
 
   return (
     <div className='nearby-activity-card-container'>
@@ -64,7 +56,7 @@ export default function NearbyActivityCard({
           id='nearbyactivity-image'
           loading='lazy'
         />
-        <button id='nearbyactivity-save-button' onClick={favoriteTrip}>
+        <button id='nearbyactivity-save-button' onClick={favTrip}>
           {saved === true ? 'Saved' : 'Save'}
         </button>
       </div>

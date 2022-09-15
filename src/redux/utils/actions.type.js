@@ -1,6 +1,10 @@
 const ActionTypes = {
-    // AUTH
-    LOGIN: 'LOGIN'
+  // AUTH
+  LOGIN: 'LOGIN',
+  TRIP: 'TRIP',
+  FAVORITE_TRIP: 'FAVORITE_TRIP',
+  GET_USER_TRIPS: 'GET_USER_TRIPS',
+  NEARBY_ACTIVITIES: 'NEARBY_ACTIVITIES',
 }
 
 export default ActionTypes

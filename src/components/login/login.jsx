@@ -13,7 +13,10 @@ export default function Login() {
 
   const loginAPI = async () => {
     dispatch(
-      userLogin({ email: email?.current?.value, password: password?.current?.value })
+      userLogin({
+        email: email?.current?.value,
+        password: password?.current?.value,
+      })
     )
   }
 

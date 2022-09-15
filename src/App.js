@@ -1,39 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import ImageCarousel from './components/carousel/carousel'
 import Description from './components/description/description'
 import Label from './components/label/label'
 import Login from './components/login/login'
 import MapComponent from './components/map/map'
 import NearbyActivity from './components/nearby-activity/nearbyActivity'
-import { API_ENDPOINT } from './shared/data/common-data'
+import { fetchTripDetails } from './redux/features/trip/trip.action'
 import './shared/style/main.css'
 
 function App() {
-  const [data, setData] = useState({})
+  const data = useSelector((state) => state.trip.data)
   const loginData = useSelector((state) => state.auth.data)
 
-  const fetchDetails = async (activitySlug) => {
-    const data = await fetch(
-      `${API_ENDPOINT}/frontend/activities/slug/${activitySlug}`,
-      {
-        method: 'GET',
-      }
-    )
+  const dispatch = useDispatch()
 
-    const response = await data.json()
-    setData(response)
+  const fetchDetails = async (activitySlug) => {
+    dispatch(fetchTripDetails(activitySlug, loginData?.jwt))
   }
 
   useEffect(() => {
     fetchDetails(window.location.pathname.slice(1))
   }, [])
 
-  console.log(loginData)
-
   return (
     <div className='App'>
-      {loginData?.jwt ? (
+      {loginData?.jwt && data ? (
         <>
           <section>
             <ImageCarousel images={data?.images} activityId={data?.id} />

@@ -1,49 +1,41 @@
-import { Fragment, useEffect, useState } from 'react'
-import {
-  API_ENDPOINT,
-  nearbyActivitiesData,
-} from '../../shared/data/common-data'
+import { Fragment, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchNearbyActivities } from '../../redux/features/trip/trip.action'
+import { nearbyActivitiesData } from '../../shared/data/common-data'
 import '../../shared/style/main.css'
 import NearbyActivityCard from './nearby-activity-components/NearbyActivityCard'
 
 export default function NearbyActivity({ activityId = 270 }) {
-  const [nearbyActivities, setNearbyActivities] = useState([])
+  const nearbyActivities = useSelector((state) => state?.trip?.nearbyActivities)
+  const loginData = useSelector((state) => state?.auth?.data)
+  const dispatch = useDispatch()
 
-  const fetchNearbyActivities = async () => {
-    const data = await fetch(
-      `${API_ENDPOINT}/frontend/activities/nearby/${activityId}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      }
-    )
-
-    const response = await data.json()
-
-    setNearbyActivities(response)
+  const fetchNearbyAct = async () => {
+    console.log(activityId)
+    dispatch(fetchNearbyActivities(loginData?.jwt, activityId))
   }
 
   /* eslint-disable */
   useEffect(() => {
-    fetchNearbyActivities()
+    fetchNearbyAct()
   }, [activityId])
 
   return (
     <div className='nearby-section-container'>
       <h1>{nearbyActivitiesData.title}</h1>
       <div className='nearby-activities-container'>
-        {Array.isArray(nearbyActivities) ? nearbyActivities?.map((nearbyActivity, index) => (
-          <Fragment key={index}>
-            <NearbyActivityCard
-              images={nearbyActivity.images}
-              title={nearbyActivity.name}
-              shortDescription={nearbyActivity.description_short}
-              id={nearbyActivity.id}
-            />
-          </Fragment>
-        )) : ''}
+        {Array.isArray(nearbyActivities)
+          ? nearbyActivities?.map((nearbyActivity, index) => (
+              <Fragment key={index}>
+                <NearbyActivityCard
+                  images={nearbyActivity.images}
+                  title={nearbyActivity.name}
+                  shortDescription={nearbyActivity.description_short}
+                  id={nearbyActivity.id}
+                />
+              </Fragment>
+            ))
+          : ''}
       </div>
     </div>
   )
