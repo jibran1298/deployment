@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   favoriteTrip,
-  fetchUserTrips,
+  fetchUserTrips
 } from '../../../redux/features/trip/trip.action'
 import '../../../shared/style/main.css'
 
@@ -13,7 +13,6 @@ export default function NearbyActivityCard({
   id = 0,
 }) {
   const [saved, setSaved] = useState(false)
-  const tripData = useSelector((state) => state.trip)
   const userTrips = useSelector((state) => state.trip.trips)
   const loginData = useSelector((state) => state.auth.data)
   const dispatch = useDispatch()
@@ -42,6 +41,7 @@ export default function NearbyActivityCard({
     }
   }
 
+  /* eslint-disable */
   useEffect(() => {
     fetchTrips()
   }, [loginData])

@@ -38,10 +38,12 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
     }
   }
 
+  /* eslint-disable */
   useEffect(() => {
     fetchTrips()
   }, [loginData])
 
+  /* eslint-disable */
   useEffect(() => {
     trips[0]?.activities?.map((activity) => {
       if (activity.id === activityId) {

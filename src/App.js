@@ -19,6 +19,7 @@ function App() {
     dispatch(fetchTripDetails({ slug: activitySlug, token: loginData }))
   }
 
+  /* eslint-disable */
   useEffect(() => {
     fetchDetails(window.location.pathname.slice(1))
   }, [])
