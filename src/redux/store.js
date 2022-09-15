@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { auth } from './auth/authReducer'
+import { createStore, applyMiddleware } from 'redux'
+import { persistStore } from 'redux-persist'
+import thunk from 'redux-thunk'
+import rootReducer from './rootReducer'
 
-export const store = configureStore({
-  reducer: {
-    auth: auth,
-  },
-})
+const middlewares = [thunk]
+export const store = createStore(rootReducer, applyMiddleware(...middlewares))
+export const persistor = persistStore(store)

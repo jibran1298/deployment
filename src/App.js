@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import ImageCarousel from './components/carousel/carousel'
 import Description from './components/description/description'
 import Label from './components/label/label'
@@ -10,6 +11,7 @@ import './shared/style/main.css'
 
 function App() {
   const [data, setData] = useState({})
+  const loginData = useSelector((state) => state.data)
 
   const fetchDetails = async (activitySlug) => {
     const data = await fetch(
@@ -29,7 +31,7 @@ function App() {
 
   return (
     <div className='App'>
-      {localStorage.getItem('accessToken') ? (
+      {loginData?.jwt ? (
         <>
           <section>
             <ImageCarousel images={data?.images} activityId={data?.id} />

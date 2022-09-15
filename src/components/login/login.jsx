@@ -1,5 +1,5 @@
 import React, { Suspense, useCallback, useRef } from 'react'
-import { API_ENDPOINT } from '../../shared/data/common-data'
+import { userLogin } from '../../redux/features/auth/auth.action'
 import '../../shared/style/main.css'
 
 const Button = React.lazy(() => import('../../shared/components/Button'))
@@ -10,20 +10,7 @@ export default function Login() {
   const password = useRef(null)
 
   const loginAPI = async () => {
-    const formdata = new FormData()
-    formdata.append('identifier', email?.current?.value)
-    formdata.append('password', password?.current?.value)
-    const data = await fetch(`${API_ENDPOINT}/auth/local`, {
-      method: 'POST',
-      body: formdata,
-    })
-
-    const response = await data.json()
-
-    localStorage.setItem('accessToken', response?.jwt)
-    localStorage.setItem('userDetails', response?.user)
-
-    window.location.reload()
+    userLogin(email, password)
   }
 
   const handleFormSubmit = useCallback(() => {
