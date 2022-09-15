@@ -19,8 +19,8 @@ export const userLogin = ({ email = '', password = '' }) => {
 
       const response = await data.json()
 
-      if (response?.jwt) {
-        dispatch(setLoginData(response))
+      if (response.jwt) {
+        dispatch(setLoginData(response.jwt))
         // window.location.reload()
       }
     } catch (error) {

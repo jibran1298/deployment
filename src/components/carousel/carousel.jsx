@@ -32,7 +32,7 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
 
   const fetchTrips = async () => {
     try {
-      dispatch(fetchUserTrips(loginData?.jwt))
+      dispatch(fetchUserTrips(loginData))
     } catch (error) {
       console.error(error)
     }
@@ -40,7 +40,7 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
 
   useEffect(() => {
     fetchTrips()
-  }, [])
+  }, [loginData])
 
   useEffect(() => {
     trips?.activities?.map((activity) => {

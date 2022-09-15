@@ -2,7 +2,7 @@ import { API_ENDPOINT } from '../../../shared/data/common-data'
 import ActionsType from '../../utils/actions.type'
 
 export const setTripData = (data) => ({
-  type: ActionsType.LOGIN,
+  type: ActionsType.TRIP,
   payload: data,
 })
 
@@ -12,7 +12,7 @@ export const setUserTrips = (data) => ({
 })
 
 export const setNearbyActivities = (data) => ({
-  type: ActionsType.GET_USER_TRIPS,
+  type: ActionsType.NEARBY_ACTIVITIES,
   payload: data,
 })
 
@@ -79,6 +79,7 @@ export const favoriteTrip = ({ token = '', activityId = 0, tripId = 0 }) => {
 export const fetchNearbyActivities = ({ token = '', activityId = 270 }) => {
   return async (dispatch) => {
     try {
+      console.log(token)
       const data = await fetch(
         `${API_ENDPOINT}/frontend/activities/nearby/${activityId}`,
         {

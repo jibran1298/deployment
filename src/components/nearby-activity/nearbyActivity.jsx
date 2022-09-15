@@ -11,14 +11,13 @@ export default function NearbyActivity({ activityId = 270 }) {
   const dispatch = useDispatch()
 
   const fetchNearbyAct = async () => {
-    console.log(activityId)
-    dispatch(fetchNearbyActivities(loginData?.jwt, activityId))
+    dispatch(fetchNearbyActivities({ token: loginData, activityId: activityId }))
   }
 
   /* eslint-disable */
   useEffect(() => {
     fetchNearbyAct()
-  }, [activityId])
+  }, [loginData])
 
   return (
     <div className='nearby-section-container'>
@@ -26,15 +25,15 @@ export default function NearbyActivity({ activityId = 270 }) {
       <div className='nearby-activities-container'>
         {Array.isArray(nearbyActivities)
           ? nearbyActivities?.map((nearbyActivity, index) => (
-              <Fragment key={index}>
-                <NearbyActivityCard
-                  images={nearbyActivity.images}
-                  title={nearbyActivity.name}
-                  shortDescription={nearbyActivity.description_short}
-                  id={nearbyActivity.id}
-                />
-              </Fragment>
-            ))
+            <Fragment key={index}>
+              <NearbyActivityCard
+                images={nearbyActivity.images}
+                title={nearbyActivity.name}
+                shortDescription={nearbyActivity.description_short}
+                id={nearbyActivity.id}
+              />
+            </Fragment>
+          ))
           : ''}
       </div>
     </div>

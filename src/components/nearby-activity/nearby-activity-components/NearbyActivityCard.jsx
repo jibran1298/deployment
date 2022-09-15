@@ -19,7 +19,7 @@ export default function NearbyActivityCard({
 
   const favTrip = async () => {
     try {
-      dispatch(favoriteTrip(loginData?.jwt, id, images[0]?.id))
+      dispatch(favoriteTrip({ token: loginData, activityId: id, tripId: images[0]?.id }))
     } catch (error) {
       console.error(error)
     } finally {
@@ -29,7 +29,7 @@ export default function NearbyActivityCard({
 
   const fetchTrips = async () => {
     try {
-      dispatch(fetchUserTrips(loginData?.jwt))
+      dispatch(fetchUserTrips(loginData))
     } catch (error) {
       console.error(error)
     }
@@ -37,7 +37,7 @@ export default function NearbyActivityCard({
 
   useEffect(() => {
     fetchTrips()
-  }, [])
+  }, [loginData])
 
   useEffect(() => {
     userTrips?.activities?.map((activity) => {

@@ -16,7 +16,7 @@ function App() {
   const dispatch = useDispatch()
 
   const fetchDetails = async (activitySlug) => {
-    dispatch(fetchTripDetails(activitySlug, loginData?.jwt))
+    dispatch(fetchTripDetails({ slug: activitySlug, token: loginData }))
   }
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className='App'>
-      {loginData?.jwt && data ? (
+      {loginData && data ? (
         <>
           <section>
             <ImageCarousel images={data?.images} activityId={data?.id} />
