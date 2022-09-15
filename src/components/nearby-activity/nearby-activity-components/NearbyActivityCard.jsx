@@ -19,7 +19,13 @@ export default function NearbyActivityCard({
 
   const favTrip = async () => {
     try {
-      dispatch(favoriteTrip({ token: loginData, activityId: id, tripId: images[0]?.id }))
+      dispatch(
+        favoriteTrip({
+          token: loginData,
+          activityId: id,
+          tripId: images[0]?.id,
+        })
+      )
     } catch (error) {
       console.error(error)
     } finally {

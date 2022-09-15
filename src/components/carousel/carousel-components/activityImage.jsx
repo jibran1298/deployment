@@ -17,7 +17,9 @@ export default function ActivityImage({
 
   const favTrip = async () => {
     try {
-      dispatch(favoriteTrip({ token: loginData, activityId: activityId, tripId: id }))
+      dispatch(
+        favoriteTrip({ token: loginData, activityId: activityId, tripId: id })
+      )
     } catch (error) {
       console.error(error)
     } finally {

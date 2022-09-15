@@ -11,7 +11,9 @@ export default function NearbyActivity({ activityId = 270 }) {
   const dispatch = useDispatch()
 
   const fetchNearbyAct = async () => {
-    dispatch(fetchNearbyActivities({ token: loginData, activityId: activityId }))
+    dispatch(
+      fetchNearbyActivities({ token: loginData, activityId: activityId })
+    )
   }
 
   /* eslint-disable */
@@ -25,15 +27,15 @@ export default function NearbyActivity({ activityId = 270 }) {
       <div className='nearby-activities-container'>
         {Array.isArray(nearbyActivities)
           ? nearbyActivities?.map((nearbyActivity, index) => (
-            <Fragment key={index}>
-              <NearbyActivityCard
-                images={nearbyActivity.images}
-                title={nearbyActivity.name}
-                shortDescription={nearbyActivity.description_short}
-                id={nearbyActivity.id}
-              />
-            </Fragment>
-          ))
+              <Fragment key={index}>
+                <NearbyActivityCard
+                  images={nearbyActivity.images}
+                  title={nearbyActivity.name}
+                  shortDescription={nearbyActivity.description_short}
+                  id={nearbyActivity.id}
+                />
+              </Fragment>
+            ))
           : ''}
       </div>
     </div>
