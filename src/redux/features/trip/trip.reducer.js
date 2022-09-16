@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   data: {},
   trips: [],
   nearbyActivities: [],
+  removed: false
 }
 
 const tripReducer = (state = INITIAL_STATE, action) => {
@@ -22,6 +23,11 @@ const tripReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         nearbyActivities: action.payload,
+      }
+    case ActionTypes.REMOVE_FAVORITE:
+      return {
+        ...state,
+        removed: action.payload,
       }
 
     default:

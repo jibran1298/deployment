@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'trip'],
+  whitelist: ['auth'],
 }
 
 export default persistReducer(persistConfig, rootReducer)

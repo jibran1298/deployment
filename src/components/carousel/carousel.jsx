@@ -7,9 +7,11 @@ import ActivityImage from './carousel-components/activityImage'
 
 export default function ImageCarousel({ images = [], activityId = 0 }) {
   const [saved, setSaved] = useState(false)
+  const [tempState, setTempState] = useState(0)
   const dispatch = useDispatch()
   const loginData = useSelector((state) => state?.auth?.data)
   const trips = useSelector((state) => state?.trip?.trips)
+  const removed = useSelector((state) => state?.trip?.removed)
 
   const responsive = {
     superLargeDesktop: {
@@ -31,11 +33,7 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
   }
 
   const fetchTrips = async () => {
-    try {
-      dispatch(fetchUserTrips(loginData))
-    } catch (error) {
-      console.error(error)
-    }
+    dispatch(fetchUserTrips(loginData))
   }
 
   /* eslint-disable */
@@ -43,14 +41,33 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
     fetchTrips()
   }, [])
 
+  useEffect(() => {
+    setTempState(tempState + 1)
+  }, [trips])
+
+  useEffect(() => {
+    fetchTrips()
+  }, [saved])
+
   /* eslint-disable */
   useEffect(() => {
     trips[0]?.activities?.map((activity) => {
       if (activity.id === activityId) {
         setSaved(true)
+        return
+      } else {
+        setSaved(false)
       }
     })
-  }, [])
+  }, [trips])
+
+  useEffect(() => {
+    if (removed === true) {
+      setSaved(false)
+    } else {
+      setSaved(true)
+    }
+  }, [removed])
 
   return (
     <Carousel

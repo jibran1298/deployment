@@ -16,6 +16,11 @@ export const setNearbyActivities = (data) => ({
   payload: data,
 })
 
+export const setRemoved = (data) => ({
+  type: ActionsType.REMOVE_FAVORITE,
+  payload: data,
+})
+
 export const fetchTripDetails = ({ slug = '', token = '' }) => {
   return async (dispatch) => {
     try {
@@ -63,13 +68,46 @@ export const favoriteTrip = ({ token = '', activityId = 0, tripId = 0 }) => {
       formData.append('tripId', tripId)
       formData.append('tripType', 'favorite')
 
-      await fetch(`${API_ENDPOINT}/frontend/trips/add_activity`, {
+      const data = await fetch(`${API_ENDPOINT}/frontend/trips/add_activity`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
         },
         body: formData,
       })
+
+      const response = await data.json()
+
+      dispatch(setUserTrips(response))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export const removeFromFavorites = ({ token = '', activityId = 0, tripId = 0 }) => {
+  return async (dispatch) => {
+    try {
+      const formData = new FormData()
+      formData.append('activityId', activityId)
+      formData.append('tripId', tripId)
+      formData.append('tripType', 'favorite')
+
+      const data = await fetch(`${API_ENDPOINT}/frontend/trips/remove_activity`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      })
+
+      const response = await data.json()
+
+      if (response === 0) {
+        dispatch(setRemoved(false))
+      } else {
+        dispatch(setRemoved(true))
+      }
     } catch (error) {
       console.error(error)
     }

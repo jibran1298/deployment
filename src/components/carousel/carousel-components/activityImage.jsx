@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { favoriteTrip } from '../../../redux/features/trip/trip.action'
+import { favoriteTrip, removeFromFavorites } from '../../../redux/features/trip/trip.action'
 import { carouselSectionData } from '../../../shared/data/common-data'
 import '../../../shared/style/main.css'
 import ActivityImageButton from './activityImageButton'
@@ -15,15 +15,19 @@ export default function ActivityImage({
   const dispatch = useDispatch()
   const loginData = useSelector((state) => state?.auth?.data)
 
-  const favTrip = async () => {
+  const favTrip = () => {
     try {
-      dispatch(
-        favoriteTrip({ token: loginData, activityId: activityId, tripId: id })
-      )
+      if (isSaved === true) {
+        dispatch(
+          removeFromFavorites({ token: loginData, activityId: activityId, tripId: id })
+        )
+      } else {
+        dispatch(
+          favoriteTrip({ token: loginData, activityId: activityId, tripId: id })
+        )
+      }
     } catch (error) {
       console.error(error)
-    } finally {
-      isSaved = true
     }
   }
 
