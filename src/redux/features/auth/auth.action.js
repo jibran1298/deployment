@@ -21,7 +21,7 @@ export const userLogin = ({ email = '', password = '' }) => {
 
       if (response.jwt) {
         dispatch(setLoginData(response.jwt))
-        // window.location.reload()
+        window.location.reload()
       }
     } catch (error) {
       console.error(error)

@@ -1,7 +1,7 @@
 import ActionTypes from '../../utils/actions.type'
 
 const INITIAL_STATE = {
-  data: {},
+  data: '',
 }
 
 const authReducer = (state = INITIAL_STATE, action) => {

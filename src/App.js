@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className='App'>
-      {loginData && data ? (
+      {typeof loginData === 'string' && loginData.length > 0 ? (
         <>
           <section>
             <ImageCarousel images={data?.images} activityId={data?.id} />
