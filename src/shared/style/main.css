@@ -239,10 +239,9 @@
 
 /* Map Style -> End */
 
-
 /* Media Tags -> Start */
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .login-section {
     display: flex;
     align-items: center;

@@ -85,7 +85,11 @@ export const favoriteTrip = ({ token = '', activityId = 0, tripId = 0 }) => {
   }
 }
 
-export const removeFromFavorites = ({ token = '', activityId = 0, tripId = 0 }) => {
+export const removeFromFavorites = ({
+  token = '',
+  activityId = 0,
+  tripId = 0,
+}) => {
   return async (dispatch) => {
     try {
       const formData = new FormData()
@@ -93,13 +97,16 @@ export const removeFromFavorites = ({ token = '', activityId = 0, tripId = 0 }) 
       formData.append('tripId', tripId)
       formData.append('tripType', 'favorite')
 
-      const data = await fetch(`${API_ENDPOINT}/frontend/trips/remove_activity`, {
-        method: 'PUT',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      })
+      const data = await fetch(
+        `${API_ENDPOINT}/frontend/trips/remove_activity`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      )
 
       const response = await data.json()
 

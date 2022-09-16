@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   favoriteTrip,
   fetchUserTrips,
+  removeFromFavorites,
 } from '../../../redux/features/trip/trip.action'
 import '../../../shared/style/main.css'
 
@@ -13,23 +14,35 @@ export default function NearbyActivityCard({
   id = 0,
 }) {
   const [saved, setSaved] = useState(false)
-  const userTrips = useSelector((state) => state.trip.trips)
-  const loginData = useSelector((state) => state.auth.data)
+  const userTrips = useSelector((state) => state?.trip?.trips)
+  const loginData = useSelector((state) => state?.auth?.data)
   const dispatch = useDispatch()
 
   const favTrip = async () => {
     try {
-      dispatch(
-        favoriteTrip({
-          token: loginData,
-          activityId: id,
-          tripId: images[0]?.id,
-        })
-      )
+      if (saved === false) {
+        dispatch(
+          favoriteTrip({
+            token: loginData,
+            activityId: id,
+            tripId: images[0]?.id,
+          })
+        )
+
+        setSaved(true)
+      } else {
+        dispatch(
+          removeFromFavorites({
+            token: loginData,
+            activityId: id,
+            tripId: images[0]?.id,
+          })
+        )
+
+        setSaved(false)
+      }
     } catch (error) {
       console.error(error)
-    } finally {
-      fetchTrips()
     }
   }
 

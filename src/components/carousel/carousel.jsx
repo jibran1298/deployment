@@ -7,11 +7,9 @@ import ActivityImage from './carousel-components/activityImage'
 
 export default function ImageCarousel({ images = [], activityId = 0 }) {
   const [saved, setSaved] = useState(false)
-  const [tempState, setTempState] = useState(0)
   const dispatch = useDispatch()
   const loginData = useSelector((state) => state?.auth?.data)
   const trips = useSelector((state) => state?.trip?.trips)
-  const removed = useSelector((state) => state?.trip?.removed)
 
   const responsive = {
     superLargeDesktop: {
@@ -41,14 +39,6 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
     fetchTrips()
   }, [])
 
-  useEffect(() => {
-    setTempState(tempState + 1)
-  }, [trips])
-
-  useEffect(() => {
-    fetchTrips()
-  }, [saved])
-
   /* eslint-disable */
   useEffect(() => {
     trips[0]?.activities?.map((activity) => {
@@ -60,14 +50,6 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
       }
     })
   }, [trips])
-
-  useEffect(() => {
-    if (removed === true) {
-      setSaved(false)
-    } else {
-      setSaved(true)
-    }
-  }, [removed])
 
   return (
     <Carousel
@@ -94,6 +76,7 @@ export default function ImageCarousel({ images = [], activityId = 0 }) {
             alt={image.alternativeText}
             id={image.id}
             activityId={activityId}
+            toggleSaved={(value) => setSaved(value)}
           />
         </Fragment>
       ))}

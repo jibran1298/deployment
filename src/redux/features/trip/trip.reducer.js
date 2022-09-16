@@ -4,7 +4,7 @@ const INITIAL_STATE = {
   data: {},
   trips: [],
   nearbyActivities: [],
-  removed: false
+  removed: false,
 }
 
 const tripReducer = (state = INITIAL_STATE, action) => {
