@@ -51,7 +51,9 @@ function App() {
           </section>
         </>
       ) : (
-        <Login />
+        <section className='login-section'>
+          <Login />
+        </section>
       )}
     </div>
   )
